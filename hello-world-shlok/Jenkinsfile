@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    tools {
+    maven 'maven'
+    jdk 'jdk-21'
+}
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Shlokuchavan/Devops.git'
+                 
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                deploy adapters: [
+                    tomcat9(
+                        credentialsId: 'tomcat-creds',
+                        path: '',
+                        url: 'http://localhost:8082'
+                    )
+                ],
+                contextPath: 'hello-world-shlok',
+                war: 'target/hello-world-shlok.war'
+            }
+        }
+    }
+}
