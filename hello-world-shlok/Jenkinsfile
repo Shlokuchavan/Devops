@@ -23,13 +23,13 @@ pipeline {
             steps {
                 deploy adapters: [
                     tomcat9(
-                        credentialsId: 'tomcat-creds',
+                        credentialsId: 'tomcat-cred',
                         path: '',
                         url: 'http://localhost:8082'
                     )
                 ],
                 contextPath: 'hello-world-shlok',
-                war: 'target/hello-world-shlok.war'
+                war: 'hello-world-shlok/target/hello-world-shlok.war'
             }
         }
     }
