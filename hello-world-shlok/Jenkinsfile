@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                bat 'mvn clean package'
+                bat 'cd hello-world-shlok && mvn clean package'
             }
         }
 
